@@ -1,0 +1,48 @@
+{
+    "cards": [
+        {
+            "id": 2,
+            "name": "Brown cup",
+            "description": "This cup contains infinite amount of luck",
+            "resourceGameObjectName": "Plastic_Cup",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotation": {
+                "x": -0.20184294879436494,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 0.9794179797172546
+            },
+            "scale": {
+                "x": 89.8213119506836,
+                "y": 89.82131958007813,
+                "z": 89.82131958007813
+            }
+        },
+        {
+            "id": 3,
+            "name": "Race car",
+            "description": "It is as fast as growing cost of dollar. The higher speed the more risks",
+            "resourceGameObjectName": "car_1",
+            "position": {
+                "x": 0.6503900289535523,
+                "y": 75.4260025024414,
+                "z": -68.73999786376953
+            },
+            "rotation": {
+                "x": -0.5602755546569824,
+                "y": -0.19984668493270875,
+                "z": 0.29451510310173037,
+                "w": -0.7479395270347595
+            },
+            "scale": {
+                "x": 81.58493041992188,
+                "y": 81.58493041992188,
+                "z": 81.58493041992188
+            }
+        }
+    ]
+}

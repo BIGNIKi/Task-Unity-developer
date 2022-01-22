@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ScrollLogic : MonoBehaviour
 {
-    public bool hasSnapped = true; // have we already snapped camera to a center of a card?
+    private bool hasSnapped = true; // have we already snapped camera to a center of a card?
 
-    public float scrollValueOld, scrollValueNew;
+    private float scrollValueOld, scrollValueNew;
 
     public Scrollbar scrollbar; // reference to the scrollbar
 
@@ -30,7 +30,8 @@ public class ScrollLogic : MonoBehaviour
             {
                 hasSnapped = true;
 
-                numOfCard = this.transform.childCount;
+                //numOfCard = this.transform.childCount;
+                numOfCard = Util.getChildCountActive(transform);
                 float[] pos = new float[numOfCard];
                 float space = 1f / (numOfCard - 1f); // space between two cards in terms of scrollbar value
                 for(int i = 0; i < numOfCard; i++)
