@@ -1,7 +1,7 @@
 {
     "cards": [
         {
-            "id": 2,
+            "id": 0,
             "name": "Brown cup",
             "description": "This cup contains infinite amount of luck",
             "resourceGameObjectName": "Plastic_Cup",
@@ -20,10 +20,11 @@
                 "x": 89.8213119506836,
                 "y": 89.82131958007813,
                 "z": 89.82131958007813
-            }
+            },
+            "isOpen": true
         },
         {
-            "id": 3,
+            "id": 1,
             "name": "Race car",
             "description": "It is as fast as growing cost of dollar. The higher speed the more risks",
             "resourceGameObjectName": "car_1",
@@ -42,7 +43,8 @@
                 "x": 81.58493041992188,
                 "y": 81.58493041992188,
                 "z": 81.58493041992188
-            }
+            },
+            "isOpen": false
         }
     ]
 }

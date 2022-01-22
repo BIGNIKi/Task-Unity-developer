@@ -9,9 +9,14 @@ public class DarkLogic : MonoBehaviour
     private int isShouldOpen = 1; // 1 - will open, -1 - will close
     private int numProcesses = 0;
 
+    public void ChangeOpenState()
+    {
+        isShouldOpen = isShouldOpen == -1 ? 1 : -1;
+    }
+
     public void OnClickCallback()
     {
-        isShouldOpen = isShouldOpen == -1 ? 1:-1 ;
+        ChangeOpenState();
         if(numProcesses == 0)
         {
             numProcesses++;

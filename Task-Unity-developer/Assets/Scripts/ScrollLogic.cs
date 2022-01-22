@@ -32,14 +32,15 @@ public class ScrollLogic : MonoBehaviour
 
                 //numOfCard = this.transform.childCount;
                 numOfCard = Util.getChildCountActive(transform);
-                float[] pos = new float[numOfCard];
+                float[] pos = GetPositionVector();
+                //float[] pos = new float[numOfCard];
                 float space = 1f / (numOfCard - 1f); // space between two cards in terms of scrollbar value
                 for(int i = 0; i < numOfCard; i++)
                 {
-                    pos[i] = space * i; // value of scrollbar value for ith card
+                    //pos[i] = space * i; // value of scrollbar value for ith card
                     if(scrollValueNew > pos[i] - (space / 2) && scrollValueNew < pos[i] + (space / 2))
                     {
-                        StartCoroutine(SmoothSlide(pos[i]));
+                        StartCoroutine(SmoothSlide(pos[i], false));
                         break;
                     }
                 }
@@ -51,13 +52,25 @@ public class ScrollLogic : MonoBehaviour
         }
     }
 
-    private IEnumerator SmoothSlide(float to)
+    private float[] GetPositionVector()
+    {
+        numOfCard = Util.getChildCountActive(transform);
+        float[] pos = new float[numOfCard];
+        float space = 1f / (numOfCard - 1f); // space between two cards in terms of scrollbar value
+        for(int i = 0; i < numOfCard; i++)
+        {
+            pos[i] = space * i; // value of scrollbar value for ith card
+        }
+        return pos;
+    }
+
+    private IEnumerator SmoothSlide(float to, bool isInitialMove)
     {
         float from = scrollbar.value;
         float progress = 0;
         while(Mathf.Abs(scrollbar.value - to) > 0.01f)
         {
-            if(!hasSnapped || scrollbar.value <= 0 || scrollbar.value >= 1)
+            if(!hasSnapped || !isInitialMove && (scrollbar.value <= 0 || scrollbar.value >= 1))
             {
                 yield break;
             }
@@ -77,6 +90,38 @@ public class ScrollLogic : MonoBehaviour
             scrollbar.value = to;
         }
         yield break;
+    }
+
+    public void MakeInitialMove(int mode)
+    {
+        bool shouldOpen = mode == 0 ? true : false;
+        numOfCard = transform.childCount;
+        if(numOfCard == 0)
+        {
+            return;
+        }
+        int id = 0; // id of card to move
+        for(int i = 0; i < numOfCard; i++)
+        {
+            if(transform.GetChild(i).gameObject.activeSelf == false)
+            {
+                continue;
+            }
+
+            if(transform.GetChild(i).GetComponent<CardState>().IsOpened() == shouldOpen)
+            {
+                break;
+            }
+            id++;
+
+            if(i == numOfCard - 1)
+            {
+                return;
+            }
+        }
+
+        float[] pos = GetPositionVector();
+        StartCoroutine(SmoothSlide(pos[id], true));
     }
 
     public void ScrollbarCallback()

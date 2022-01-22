@@ -10,7 +10,11 @@ public class MainInstance : MonoBehaviour
 {
     public GameObject prefOfCard;
 
-    // Start is called before the first frame update
+    public InitButton initButton;
+
+    public ScrollLogic scrollLogic;
+
+
     void Start()
     {
         Cards cards = Util.LoadFromJson<Cards>("save.json");
@@ -21,6 +25,9 @@ public class MainInstance : MonoBehaviour
                 CreateCard(cardInfo);
             }
         }
+
+        initButton.LoadPref();
+        scrollLogic.MakeInitialMove(initButton.GetMode());
     }
 
     // Update is called once per frame
@@ -39,6 +46,12 @@ public class MainInstance : MonoBehaviour
         ob3d.transform.localPosition = cardInfo.position;
         ob3d.transform.rotation = cardInfo.rotation;
         ob3d.transform.localScale = cardInfo.scale;
+        if(cardInfo.isOpen)
+        {
+            neww.transform.Find("dark").GetComponent<DarkLogic>().ChangeOpenState();
+            neww.transform.Find("dark").GetComponent<DarkLogic>().canvas.alpha = 0;
+            neww.transform.GetComponent<CardState>().SetIsOpened(true);
+        }
     }
 
     private Cards GetAllCardsInfo()
@@ -46,7 +59,7 @@ public class MainInstance : MonoBehaviour
         Cards cards = new Cards();
         cards.cards = new List<CardInfo>();
 
-        for(int i = 0; i< transform.childCount; i++)
+        for(int i = 0, id = 0; i< transform.childCount; i++)
         {
             if(transform.GetChild(i).gameObject.activeSelf == false)
             {
@@ -55,7 +68,8 @@ public class MainInstance : MonoBehaviour
 
             CardInfo newCard = new CardInfo();
             var child = transform.GetChild(i);
-            newCard.id = i;
+            newCard.id = id;
+            id++;
             newCard.name = child.Find("UpPlashka/Name").GetComponent<Text>().text;
             newCard.description = child.Find("Info/Text").GetComponent<Text>().text;
 
@@ -65,7 +79,7 @@ public class MainInstance : MonoBehaviour
             newCard.scale = ob3d.transform.localScale;
             newCard.rotation = ob3d.transform.rotation;
 
-            // newCard.isOpen = 
+            newCard.isOpen = child.GetComponent<CardState>().IsOpened();
 
             cards.cards.Add(newCard);
         }
@@ -87,7 +101,7 @@ public class MainInstance : MonoBehaviour
         public Vector3 position;
         public Quaternion rotation;
         public Vector3 scale;
-        //public bool isOpen;
+        public bool isOpen;
         //public float timeToOpen;
         //public float timeLeftToOpen;
     }
