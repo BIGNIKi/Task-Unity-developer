@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ScrollLogic : MonoBehaviour
 {
-    private bool hasSnapped = true; // have we already snapped camera to a center of a card?
+    public bool hasSnapped = true; // have we already snapped camera to a center of a card?
 
-    private float scrollValueOld, scrollValueNew;
+    public float scrollValueOld, scrollValueNew;
 
     public Scrollbar scrollbar; // reference to the scrollbar
 
@@ -22,7 +22,6 @@ public class ScrollLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        numOfCard = this.transform.childCount;
         // should we fix the camera? && no touches
         if(!hasSnapped && Input.touchCount == 0 && !Input.GetMouseButton(0)) // I check Mouse button for debuggin in editor
         {
@@ -31,6 +30,7 @@ public class ScrollLogic : MonoBehaviour
             {
                 hasSnapped = true;
 
+                numOfCard = this.transform.childCount;
                 float[] pos = new float[numOfCard];
                 float space = 1f / (numOfCard - 1f); // space between two cards in terms of scrollbar value
                 for(int i = 0; i < numOfCard; i++)
@@ -65,8 +65,16 @@ public class ScrollLogic : MonoBehaviour
 
             yield return null;
         }
-        
 
+        // ниже - отладка бага параллелизма
+        // когда значение value scrollbar'а на прошлом кадре совпало с (to)
+        // но на след кадр инерция меняет значение, сдвигая галерею в неверное место
+        // код ниже убирает появляющееся не нужное смещение
+        yield return null;
+        if(Mathf.Abs(scrollbar.value - to) > 0.01f)
+        {
+            scrollbar.value = to;
+        }
         yield break;
     }
 

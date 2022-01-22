@@ -883,6 +883,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25360a4b622f40448936a581d29240a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasSnapped: 1
+  scrollValueOld: 0
+  scrollValueNew: 0
   scrollbar: {fileID: 1344726414}
 --- !u!1001 &618141327
 PrefabInstance:
@@ -2100,19 +2103,7 @@ MonoBehaviour:
   m_VerticalScrollbarSpacing: -3
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 597187384}
-        m_TargetAssemblyTypeName: ScrollLogic, Assembly-CSharp
-        m_MethodName: Scrolling
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!222 &1531395996
 CanvasRenderer:
   m_ObjectHideFlags: 0
