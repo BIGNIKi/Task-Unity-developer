@@ -80,7 +80,9 @@ public class MainInstance : MonoBehaviour
     {
         card.transform.Find("dark").GetComponent<DarkLogic>().ChangeOpenState();
         card.transform.Find("dark").GetComponent<DarkLogic>().canvas.alpha = 0;
+        card.transform.GetComponent<CardState>().delayTimer.SetActive(false);
         card.transform.GetComponent<CardState>().SetIsOpened(true);
+        card.transform.GetComponent<CardState>().SetIsOpeneningProcessStarted(false);
     }
 
     private Cards GetAllCardsInfo()
@@ -132,6 +134,34 @@ public class MainInstance : MonoBehaviour
         if(pauseStatus)
         {
             CloseGallery();
+        }
+        else
+        {
+            var pref = Util.LoadFromJson<InitButton.Preferences>(Application.persistentDataPath + "/preferences.json");
+            if(pref != null)
+            {
+                double sec = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - pref.lastTime).TotalSeconds;
+                Util.SetTimePassed((long)sec);
+                foreach(Transform child in transform)
+                {
+                    if(child.gameObject.activeSelf == false)
+                    {
+                        continue;
+                    }
+                    if(child.GetComponent<CardState>().IsOpeneningProcessStarted())
+                    {
+                        if(Util.GetTimePassed() >= child.GetComponent<CardState>().GetTimeRemainToOpen())
+                        {
+                            MakeCardOpened(child.gameObject);
+                        }
+                        else
+                        {
+                            int realRemain = child.GetComponent<CardState>().GetTimeRemainToOpen() - (int)Util.GetTimePassed();
+                            child.transform.GetComponent<CardState>().SetTimeRemainToOpen(realRemain);
+                        }
+                    }
+                }
+            }
         }
     }
 

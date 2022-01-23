@@ -26,6 +26,11 @@ public class CardState : MonoBehaviour
     {
         return timeRemainToOpen;
     }
+
+    public void SetTimeRemainToOpen(int val)
+    {
+        timeRemainToOpen = val;
+    }
     
     public void SetTimeToOpenSeconds(int val)
     {
