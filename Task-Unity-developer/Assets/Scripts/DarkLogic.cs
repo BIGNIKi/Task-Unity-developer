@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DarkLogic : MonoBehaviour
@@ -14,7 +13,7 @@ public class DarkLogic : MonoBehaviour
         isShouldOpen = isShouldOpen == -1 ? 1 : -1;
     }
 
-    public void OnClickCallback()
+    public void StartOpenCloseOpertation()
     {
         ChangeOpenState();
         if(numProcesses == 0)

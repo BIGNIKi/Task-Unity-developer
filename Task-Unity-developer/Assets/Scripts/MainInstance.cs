@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System;
 using UnityEngine.UI;
 
@@ -17,6 +14,20 @@ public class MainInstance : MonoBehaviour
 
     void Start()
     {
+        OpenGallery();
+    }
+
+    private void OpenGallery()
+    {
+        initButton.LoadPref();
+
+        LoadAndCreateAllCards();
+
+        scrollLogic.MakeInitialMove(initButton.GetMode());
+    }
+
+    private void LoadAndCreateAllCards()
+    {
         Cards cards = Util.LoadFromJson<Cards>("save.json");
         if(cards != null)
         {
@@ -25,15 +36,12 @@ public class MainInstance : MonoBehaviour
                 CreateCard(cardInfo);
             }
         }
-
-        initButton.LoadPref();
-        scrollLogic.MakeInitialMove(initButton.GetMode());
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void CreateCard(CardInfo cardInfo)
@@ -48,10 +56,31 @@ public class MainInstance : MonoBehaviour
         ob3d.transform.localScale = cardInfo.scale;
         if(cardInfo.isOpen)
         {
-            neww.transform.Find("dark").GetComponent<DarkLogic>().ChangeOpenState();
-            neww.transform.Find("dark").GetComponent<DarkLogic>().canvas.alpha = 0;
-            neww.transform.GetComponent<CardState>().SetIsOpened(true);
+            MakeCardOpened(neww);
         }
+
+        neww.transform.GetComponent<CardState>().SetTimeToOpenSeconds(cardInfo.timeToOpenSeconds);
+        if(cardInfo.isOpeningProcessStarted == true)
+        {
+            if(Util.GetTimePassed() >= cardInfo.timeRemainToOpen)
+            {
+                MakeCardOpened(neww);
+            }
+            else
+            {
+                int realRemain = cardInfo.timeRemainToOpen - (int)Util.GetTimePassed();
+                neww.transform.GetComponent<CardState>().SetIsOpeneningProcessStarted(true);
+                neww.transform.GetComponent<CardState>().delayTimer.SetActive(true);
+                StartCoroutine(neww.transform.GetComponent<CardState>().TimerBusinessLogic(realRemain));
+            }
+        }
+    }
+
+    private void MakeCardOpened(GameObject card)
+    {
+        card.transform.Find("dark").GetComponent<DarkLogic>().ChangeOpenState();
+        card.transform.Find("dark").GetComponent<DarkLogic>().canvas.alpha = 0;
+        card.transform.GetComponent<CardState>().SetIsOpened(true);
     }
 
     private Cards GetAllCardsInfo()
@@ -80,6 +109,12 @@ public class MainInstance : MonoBehaviour
             newCard.rotation = ob3d.transform.rotation;
 
             newCard.isOpen = child.GetComponent<CardState>().IsOpened();
+            newCard.isOpeningProcessStarted = child.GetComponent<CardState>().IsOpeneningProcessStarted();
+            if(newCard.isOpeningProcessStarted == true)
+            {
+                newCard.timeRemainToOpen = child.GetComponent<CardState>().GetTimeRemainToOpen();
+            }
+            newCard.timeToOpenSeconds = child.GetComponent<CardState>().GetTimeToOpenSeconds();
 
             cards.cards.Add(newCard);
         }
@@ -88,7 +123,13 @@ public class MainInstance : MonoBehaviour
 
     void OnApplicationQuit()
     {
+        CloseGallery();
+    }
+
+    private void CloseGallery()
+    {
         Util.ToJsonAndCreateFile(GetAllCardsInfo(), "save.json");
+        initButton.SavePref();
     }
 
         [Serializable]
@@ -102,8 +143,9 @@ public class MainInstance : MonoBehaviour
         public Quaternion rotation;
         public Vector3 scale;
         public bool isOpen;
-        //public float timeToOpen;
-        //public float timeLeftToOpen;
+        public bool isOpeningProcessStarted;
+        public int timeToOpenSeconds;
+        public int timeRemainToOpen;
     }
 
     [Serializable]

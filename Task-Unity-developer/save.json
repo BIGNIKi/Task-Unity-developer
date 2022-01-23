@@ -21,7 +21,10 @@
                 "y": 89.82131958007813,
                 "z": 89.82131958007813
             },
-            "isOpen": true
+            "isOpen": false,
+            "isOpeningProcessStarted": false,
+            "timeToOpenSeconds": 3615,
+            "timeRemainToOpen": 0
         },
         {
             "id": 1,
@@ -44,7 +47,10 @@
                 "y": 81.58493041992188,
                 "z": 81.58493041992188
             },
-            "isOpen": false
+            "isOpen": false,
+            "isOpeningProcessStarted": false,
+            "timeToOpenSeconds": 0,
+            "timeRemainToOpen": 0
         }
     ]
 }

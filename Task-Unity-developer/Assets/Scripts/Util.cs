@@ -4,6 +4,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class Util
 {
+    private static long timePassed;
+
+    public static void SetTimePassed(long val)
+    {
+        timePassed = val;
+    }
+
+    public static long GetTimePassed()
+    {
+        return timePassed;
+    }
+
     /// <summary>
     /// convert object to JSON and create in root directory new file with name nameOfFile
     /// </summary>

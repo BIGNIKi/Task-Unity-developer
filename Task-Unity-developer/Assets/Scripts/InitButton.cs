@@ -23,6 +23,13 @@ public class InitButton : MonoBehaviour
             mode = pref.mode;
             slider.value = mode;
             ChangeTextInfo();
+
+            double sec = TimeSpan.FromTicks(DateTime.UtcNow.Ticks - pref.lastTime).TotalSeconds;
+            Util.SetTimePassed((long)sec);
+        }
+        else
+        {
+            Util.SetTimePassed(0);
         }
     }
 
@@ -54,10 +61,11 @@ public class InitButton : MonoBehaviour
                 break;
         }
     }
-    void OnApplicationQuit()
+    public void SavePref()
     {
         Preferences pref = new Preferences();
         pref.mode = mode;
+        pref.lastTime = DateTime.UtcNow.Ticks;
         Util.ToJsonAndCreateFile(pref, "preferences.json");
     }
 
@@ -65,5 +73,6 @@ public class InitButton : MonoBehaviour
     public class Preferences
     {
         public int mode;
+        public long lastTime;
     }
 }
