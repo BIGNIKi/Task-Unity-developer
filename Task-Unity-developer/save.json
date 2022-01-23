@@ -2,6 +2,84 @@
     "cards": [
         {
             "id": 0,
+            "name": "Police car",
+            "description": "Driver, pull over now! LSPD!\nDriver, stop your vehicle!",
+            "resourceGameObjectName": "car_2",
+            "position": {
+                "x": -2.0,
+                "y": 88.0,
+                "z": -102.0
+            },
+            "rotation": {
+                "x": 0.28259986639022829,
+                "y": 0.5044435262680054,
+                "z": -0.7001619338989258,
+                "w": 0.41886433959007265
+            },
+            "scale": {
+                "x": 81.58493041992188,
+                "y": 81.58493041992188,
+                "z": 81.58493041992188
+            },
+            "isOpen": true,
+            "isOpeningProcessStarted": false,
+            "timeToOpenSeconds": 0,
+            "timeRemainToOpen": 0
+        },
+        {
+            "id": 1,
+            "name": "Piston cup",
+            "description": "The Piston Cup is an annual racing series in the world of Cars",
+            "resourceGameObjectName": "lightning",
+            "position": {
+                "x": 6.0,
+                "y": -15.0,
+                "z": -29.0
+            },
+            "rotation": {
+                "x": 0.08407790213823319,
+                "y": -0.5139599442481995,
+                "z": -0.01111325528472662,
+                "w": -0.8536114692687988
+            },
+            "scale": {
+                "x": 808.7099609375,
+                "y": 808.7099609375,
+                "z": 808.7099609375
+            },
+            "isOpen": false,
+            "isOpeningProcessStarted": false,
+            "timeToOpenSeconds": 5,
+            "timeRemainToOpen": 0
+        },
+        {
+            "id": 2,
+            "name": "Phone",
+            "description": "- Retina HD display.\r\n- 4.7-inch (diagonal) widescreen LCD Multi-Touch display with IPS technology.\r\n- 1334-by-750-pixel resolution at 326 ppi.\r\n- 1400:1 contrast ratio (typical)\r\n\n",
+            "resourceGameObjectName": "weeb phone",
+            "position": {
+                "x": -16.399999618530275,
+                "y": 150.10000610351563,
+                "z": -99.0
+            },
+            "rotation": {
+                "x": -0.5090563893318176,
+                "y": 0.7094941735267639,
+                "z": -0.39594629406929018,
+                "w": 0.2840883135795593
+            },
+            "scale": {
+                "x": 1746.9927978515625,
+                "y": 1746.9927978515625,
+                "z": 1746.9927978515625
+            },
+            "isOpen": false,
+            "isOpeningProcessStarted": false,
+            "timeToOpenSeconds": 10,
+            "timeRemainToOpen": 0
+        },
+        {
+            "id": 3,
             "name": "Brown cup",
             "description": "This cup contains infinite amount of luck",
             "resourceGameObjectName": "Plastic_Cup",
@@ -23,11 +101,11 @@
             },
             "isOpen": false,
             "isOpeningProcessStarted": false,
-            "timeToOpenSeconds": 3615,
+            "timeToOpenSeconds": 145,
             "timeRemainToOpen": 0
         },
         {
-            "id": 1,
+            "id": 4,
             "name": "Race car",
             "description": "It is as fast as growing cost of dollar. The higher speed the more risks",
             "resourceGameObjectName": "car_1",

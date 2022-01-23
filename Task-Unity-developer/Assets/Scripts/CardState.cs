@@ -9,6 +9,7 @@ public class CardState : MonoBehaviour
 
     public GameObject delayTimer;
 
+    [SerializeField]
     private int timeToOpenSeconds = 0;
     private int timeRemainToOpen;
 
