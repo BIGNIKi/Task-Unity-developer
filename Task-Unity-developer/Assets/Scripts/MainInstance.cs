@@ -28,7 +28,7 @@ public class MainInstance : MonoBehaviour
 
     private void LoadAndCreateAllCards()
     {
-        Cards cards = Util.LoadFromJson<Cards>("save.json");
+        Cards cards = Util.LoadFromJson<Cards>(Application.persistentDataPath + "/save.json");
         if(cards != null)
         {
             foreach(CardInfo cardInfo in cards.cards)
@@ -126,9 +126,18 @@ public class MainInstance : MonoBehaviour
         CloseGallery();
     }
 
-    private void CloseGallery()
+    // true - pause, false - re-opened
+    void OnApplicationPause(bool pauseStatus)
     {
-        Util.ToJsonAndCreateFile(GetAllCardsInfo(), "save.json");
+        if(pauseStatus)
+        {
+            CloseGallery();
+        }
+    }
+
+        private void CloseGallery()
+    {
+        Util.ToJsonAndCreateFile(GetAllCardsInfo(), Application.persistentDataPath + "/save.json");
         initButton.SavePref();
     }
 

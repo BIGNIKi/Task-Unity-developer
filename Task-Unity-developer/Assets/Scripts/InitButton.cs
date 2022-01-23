@@ -17,7 +17,7 @@ public class InitButton : MonoBehaviour
 
     public void LoadPref()
     {
-        Preferences pref = Util.LoadFromJson<Preferences>("preferences.json");
+        Preferences pref = Util.LoadFromJson<Preferences>(Application.persistentDataPath + "/preferences.json");
         if(pref != null)
         {
             mode = pref.mode;
@@ -66,7 +66,7 @@ public class InitButton : MonoBehaviour
         Preferences pref = new Preferences();
         pref.mode = mode;
         pref.lastTime = DateTime.UtcNow.Ticks;
-        Util.ToJsonAndCreateFile(pref, "preferences.json");
+        Util.ToJsonAndCreateFile(pref, Application.persistentDataPath + "/preferences.json");
     }
 
     [Serializable]
