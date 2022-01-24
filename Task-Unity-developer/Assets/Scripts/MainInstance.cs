@@ -29,6 +29,15 @@ public class MainInstance : MonoBehaviour
     private void LoadAndCreateAllCards()
     {
         Cards cards = Util.LoadFromJson<Cards>(Application.persistentDataPath + "/save.json");
+
+        /// for tests
+        if(cards == null)
+        {
+            cards = JsonUtility.FromJson<Cards>(Resources.Load<TextAsset>("save").text);
+            Debug.Log("You use test save");
+        }
+        ///
+
         if(cards != null)
         {
             foreach(CardInfo cardInfo in cards.cards)

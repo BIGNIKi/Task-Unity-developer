@@ -18,6 +18,15 @@ public class InitButton : MonoBehaviour
     public void LoadPref()
     {
         Preferences pref = Util.LoadFromJson<Preferences>(Application.persistentDataPath + "/preferences.json");
+
+        /// for tests
+        if(pref == null)
+        {
+            pref = JsonUtility.FromJson<Preferences>(Resources.Load<TextAsset>("preferences").text);
+            Debug.Log("You use test preferences");
+        }
+        ///
+
         if(pref != null)
         {
             mode = pref.mode;

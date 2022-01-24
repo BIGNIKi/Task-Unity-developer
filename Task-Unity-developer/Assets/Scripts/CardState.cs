@@ -63,6 +63,7 @@ public class CardState : MonoBehaviour
         {
             return;
         }
+        // isOpened == true - условие на закрытие карты (таймер не нужен, если мы закрываем карту)
         if(timeToOpenSeconds == 0 || isOpened)
         {
             OpenCard();

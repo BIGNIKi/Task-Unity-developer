@@ -55,7 +55,7 @@ public class Util
                 return newOb;
             }
         }
-        Debug.LogError("Couldn't find a file.");
+        //Debug.LogError("Couldn't find a file.");
         return default(T);
     }
 
