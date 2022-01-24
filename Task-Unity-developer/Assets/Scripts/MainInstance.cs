@@ -137,11 +137,22 @@ public class MainInstance : MonoBehaviour
         CloseGallery();
     }
 
+    private int counter = 0;
+
     // true - pause, false - re-opened
     void OnApplicationPause(bool pauseStatus)
     {
         if(pauseStatus)
         {
+            /// костыль, чтобы пофиксить след. баг:
+            /// ѕри первом запуске прилож просит у ќ— андроида разрешение на сохранение данных
+            /// из-за этого приложение уходит в паузу и после сохран€ет данные, чего по задумке быть не должно
+            if(Util.getChildCountActive(transform) == 0)
+            {
+                return;
+            }
+            ///
+
             CloseGallery();
         }
         else
@@ -174,7 +185,7 @@ public class MainInstance : MonoBehaviour
         }
     }
 
-        private void CloseGallery()
+    private void CloseGallery()
     {
         Util.ToJsonAndCreateFile(GetAllCardsInfo(), Application.persistentDataPath + "/save.json");
         initButton.SavePref();
