@@ -137,8 +137,6 @@ public class MainInstance : MonoBehaviour
         CloseGallery();
     }
 
-    private int counter = 0;
-
     // true - pause, false - re-opened
     void OnApplicationPause(bool pauseStatus)
     {
