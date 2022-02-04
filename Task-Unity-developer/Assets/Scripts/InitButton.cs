@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class InitButton : MonoBehaviour
 {
     public Slider slider;
-    public Text textInfo;
+
+    [SerializeField]
+    private TextMeshProUGUI textInfo;
     public ScrollLogic scrollLogic;
 
     private int mode = 0; // 0 - move to open card, 1 - move to close card

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
+using TMPro;
 
 public class MainInstance : MonoBehaviour
 {
@@ -56,8 +57,10 @@ public class MainInstance : MonoBehaviour
     private void CreateCard(CardInfo cardInfo)
     {
         GameObject neww = Instantiate(prefOfCard, transform);
-        neww.transform.Find("UpPlashka/Name").GetComponent<Text>().text = cardInfo.name;
-        neww.transform.Find("Info/Text").GetComponent<Text>().text = cardInfo.description;
+        // neww.transform.Find("UpPlashka/Name").GetComponent<Text>().text = cardInfo.name;
+        neww.transform.Find("UpPlashka/Name").GetComponent<TextMeshProUGUI>().text = cardInfo.name;
+        // neww.transform.Find("Info/Text").GetComponent<Text>().text = cardInfo.description;
+        neww.transform.Find("Info/Text").GetComponent<TextMeshProUGUI>().text = cardInfo.description;
         GameObject ob3d = Instantiate(Resources.Load<GameObject>(cardInfo.resourceGameObjectName), neww.transform.Find("3dObject"));
         ob3d.name = cardInfo.resourceGameObjectName;
         ob3d.transform.localPosition = cardInfo.position;
@@ -110,8 +113,9 @@ public class MainInstance : MonoBehaviour
             var child = transform.GetChild(i);
             newCard.id = id;
             id++;
-            newCard.name = child.Find("UpPlashka/Name").GetComponent<Text>().text;
-            newCard.description = child.Find("Info/Text").GetComponent<Text>().text;
+            newCard.name = child.Find("UpPlashka/Name").GetComponent<TextMeshProUGUI>().text;
+
+            newCard.description = child.Find("Info/Text").GetComponent<TextMeshProUGUI>().text;
 
             var ob3d = child.Find("3dObject").GetChild(0);
             newCard.resourceGameObjectName = ob3d.name;

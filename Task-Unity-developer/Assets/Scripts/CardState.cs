@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using TMPro;
 
 public class CardState : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class CardState : MonoBehaviour
     private int timeRemainToOpen;
 
     public DarkLogic darkLogic;
-    public Text textTime;
+    //public Text textTime;
+    [SerializeField]
+    private TextMeshProUGUI textTime;
+
     public Image circleBar;
 
     public int GetTimeToOpenSeconds()
